@@ -1,5 +1,7 @@
 """Contains the Value class."""
 
+from math import sqrt
+
 class Value:
     """A Value represents a numerical measurement of some kind, with its
     associated uncertainty/error.
@@ -58,3 +60,15 @@ class Value:
         if self._error:
             return "{} ± {}".format(self._value, self._error)
         return str(self._value)
+
+
+    def __add__(self, other):
+        value = self._value + (other._value if isinstance(other, Value) else other)
+        error = self._error ** 2
+        other_error = (other._error if isinstance(other, Value) else 0) ** 2
+        error = sqrt(error + other_error)
+        return Value(value, error)
+
+
+    def __radd__(self, other):
+        return self + other

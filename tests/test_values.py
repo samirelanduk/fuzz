@@ -72,3 +72,33 @@ class ValueReprTests(TestCase):
     def test_repr_with_error(self):
         val = Value(23, 0.5)
         self.assertEqual(str(val), '23 ± 0.5')
+
+
+
+class ValueAdditionTests(TestCase):
+
+    def test_can_add_values(self):
+        val1 = Value(23, 5)
+        val2 = Value(19, 1)
+        val3 = val1 + val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 42)
+        self.assertAlmostEqual(val3._error, 5.1, delta=0.05)
+
+
+    def test_can_add_value_to_number(self):
+        val1 = Value(23, 0.5)
+        val2 = 19.0
+        val3 = val1 + val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 42)
+        self.assertEqual(val3._error, 0.5)
+
+
+    def test_can_add_number_to_value(self):
+        val1 = 23
+        val2 = Value(19, 0.4)
+        val3 = val1 + val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 42)
+        self.assertEqual(val3._error, 0.4)
