@@ -34,3 +34,21 @@ class Value:
             raise ValueError("error {} is negative".format(error))
         self._value = value
         self._error = error
+
+
+    @staticmethod
+    def create(value, error=0):
+        """This is a static method, and serves as an alternate constructor for
+        Values. It tries to convert some value to an actual Value, and if it
+        can't because it is the wrong type, it just sends the object back
+        unaltered.
+
+        :param value: The value to convert.
+        :param error: The error associated with the value.
+        :returns: Either the converted :py:class:`.value` or the original\
+        object."""
+
+        try:
+            return Value(value, error)
+        except TypeError:
+            return value

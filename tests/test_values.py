@@ -36,3 +36,26 @@ class ValueCreationTests(TestCase):
     def test_error_must_be_positive(self):
         with self.assertRaises(ValueError):
             Value(23, -0.01)
+
+
+
+class ValueSafeCreateTests(TestCase):
+
+    def test_can_get_simple_value_safely(self):
+        val = Value.create(10)
+        self.assertIsInstance(val, Value)
+        self.assertEqual(val._value, 10)
+        self.assertEqual(val._error, 0)
+
+
+    def test_can_get_error_value_safely(self):
+        val = Value.create(10.5, 0.2)
+        self.assertIsInstance(val, Value)
+        self.assertEqual(val._value, 10.5)
+        self.assertEqual(val._error, 0.2)
+
+
+    def test_can_ignore_non_numbers(self):
+        s = "value"
+        val = Value.create(s, 0.2)
+        self.assertIs(val, s)
