@@ -52,3 +52,9 @@ class Value:
             return Value(value, error)
         except TypeError:
             return value
+
+
+    def __repr__(self):
+        if self._error:
+            return "{} ± {}".format(self._value, self._error)
+        return str(self._value)

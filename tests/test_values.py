@@ -59,3 +59,16 @@ class ValueSafeCreateTests(TestCase):
         s = "value"
         val = Value.create(s, 0.2)
         self.assertIs(val, s)
+
+
+
+class ValueReprTests(TestCase):
+
+    def test_repr_with_no_error(self):
+        val = Value(23)
+        self.assertEqual(str(val), '23')
+
+
+    def test_repr_with_error(self):
+        val = Value(23, 0.5)
+        self.assertEqual(str(val), '23 ± 0.5')
