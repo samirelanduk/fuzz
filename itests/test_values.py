@@ -22,7 +22,7 @@ class ValueTest(TestCase):
         value1 = Value(49.52, 0.08)
         value2 = Value(189.53, 0.05)
         product = value1 * value2
-        self.assertEqual(product.value(), 9390)
+        self.assertEqual(product.value(), 9385.5256)
         self.assertAlmostEqual(product.error(), 15.36, delta=0.005)
 
         # Values can be divided

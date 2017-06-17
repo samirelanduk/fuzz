@@ -90,6 +90,21 @@ class Value:
         return Value(value, error)
 
 
+    def __mul__(self, other):
+        value = self._value
+        other_value = (other._value if isinstance(other, Value) else other)
+        value *= other_value
+        error = self.relative_error() ** 2
+        other_error = other.relative_error() if isinstance(other, Value) else 0
+        other_error = other_error ** 2
+        error = sqrt(error + other_error)
+        return Value(value, error * value)
+
+
+    def __rmul__(self, other):
+        return self * other
+
+
     def value(self):
         """Returns the value's... value. That is, the measurement itself,
         without its associated error.

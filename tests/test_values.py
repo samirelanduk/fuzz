@@ -1,4 +1,5 @@
 from unittest import TestCase
+from unittest.mock import Mock, patch
 from fuzz.values import Value
 
 class ValueCreationTests(TestCase):
@@ -132,6 +133,42 @@ class ValueSubtractionTests(TestCase):
         self.assertIsInstance(val3, Value)
         self.assertEqual(val3._value, -4)
         self.assertEqual(val3._error, 0.4)
+
+
+
+class ValueMultiplicationTests(TestCase):
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_multiply_values(self, mock_err):
+        mock_err.side_effect = (0.025, 0.06)
+        val1 = Value(2, 0.08)
+        val2 = Value(3, 0.05)
+        val3 = val1 * val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 6)
+        self.assertAlmostEqual(val3._error, 0.39)
+
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_multiply_value_with_number(self, mock_err):
+        mock_err.return_value = 0.025
+        val1 = Value(2, 0.08)
+        val2 = 3
+        val3 = val1 * val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 6)
+        self.assertAlmostEqual(val3._error, 0.15)
+
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_multiply_number_with_value(self, mock_err):
+        mock_err.return_value = 0.06
+        val1 = 2
+        val2 = Value(3, 0.05)
+        val3 = val1 * val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 6)
+        self.assertAlmostEqual(val3._error, 0.36)
 
 
 
