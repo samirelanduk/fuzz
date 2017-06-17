@@ -88,3 +88,20 @@ class Value:
         other_error = (other._error if isinstance(other, Value) else 0) ** 2
         error = sqrt(error + other_error)
         return Value(value, error)
+
+
+    def value(self):
+        """Returns the value's... value. That is, the measurement itself,
+        without its associated error.
+
+        :rtype: ``int`` or ``float``"""
+
+        return self._value
+
+
+    def error(self):
+        """Returns the value's associated error.
+
+        :rtype: ``int`` or ``float``"""
+
+        return self._error

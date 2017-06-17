@@ -132,3 +132,19 @@ class ValueSubtractionTests(TestCase):
         self.assertIsInstance(val3, Value)
         self.assertEqual(val3._value, -4)
         self.assertEqual(val3._error, 0.4)
+
+
+
+class ValueValueTests(TestCase):
+
+    def test_can_get_value(self):
+        val = Value(23, 0.5)
+        self.assertIs(val.value(), val._value)
+
+
+
+class ValueErrorTests(TestCase):
+
+    def test_can_get_error(self):
+        val = Value(23, 0.5)
+        self.assertIs(val.error(), val._error)
