@@ -105,3 +105,11 @@ class Value:
         :rtype: ``int`` or ``float``"""
 
         return self._error
+
+
+    def relative_error(self):
+        """Returns the value's associated error as a proportion of the value.
+
+        :rtype: ``float``"""
+
+        return self._error / self._value

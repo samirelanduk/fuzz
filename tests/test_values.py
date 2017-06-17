@@ -148,3 +148,11 @@ class ValueErrorTests(TestCase):
     def test_can_get_error(self):
         val = Value(23, 0.5)
         self.assertIs(val.error(), val._error)
+
+
+
+class ValueRelativeErrorTests(TestCase):
+
+    def test_can_get_relative_error(self):
+        val = Value(100, 2)
+        self.assertEqual(val.relative_error(), 0.02)
