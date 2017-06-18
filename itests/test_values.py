@@ -35,13 +35,13 @@ class ValueTest(TestCase):
         # Values can be raised to a power
         value1 = Value(5.75, 0.08)
         power = value1 ** 3
-        self.assertEqual(power.value(), 190.1)
-        self.assertAlmostEqual(power.error(), 7.93, delta=0.005)
+        self.assertEqual(power.value(), 190.109375)
+        self.assertAlmostEqual(power.error(), 7.935, delta=0.005)
 
         # Values can be combined with constants
         value1 = Value(3.8, 0.3)
         quotient = value1 / 9.81
-        self.assertEqual(quotient.value(), 0.387)
+        self.assertAlmostEqual(quotient.value(), 0.387, delta=0.005)
         self.assertAlmostEqual(quotient.error(), 0.0306, delta=0.0005)
         sum_ = value1 + 100
         self.assertEqual(sum_.value(), 103.8)

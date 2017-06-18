@@ -208,6 +208,20 @@ class ValueDivisionTests(TestCase):
 
 
 
+class ValuePowerTests(TestCase):
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_raise_value_to_power(self, mock_err):
+        mock_err.return_value = 0.01
+        val1 = Value(2, 0.02)
+        val2 = 3
+        val3 = val1 ** val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 8)
+        self.assertEqual(val3._error, 0.24)
+
+
+
 class ValueValueTests(TestCase):
 
     def test_can_get_value(self):

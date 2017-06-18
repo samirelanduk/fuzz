@@ -124,6 +124,12 @@ class Value:
         return Value(value, error * value)
 
 
+    def __pow__(self, other):
+        value = self._value ** other
+        error = self.relative_error() * other
+        return Value(value, error * value)
+
+
     def value(self):
         """Returns the value's... value. That is, the measurement itself,
         without its associated error.
