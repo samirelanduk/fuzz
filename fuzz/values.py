@@ -130,6 +130,10 @@ class Value:
         return Value(value, error * value)
 
 
+    def __eq__(self, other):
+        return self._value == (other._value if isinstance(other, Value) else other)
+
+
     def value(self):
         """Returns the value's... value. That is, the measurement itself,
         without its associated error.

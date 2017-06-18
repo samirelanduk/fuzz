@@ -222,6 +222,33 @@ class ValuePowerTests(TestCase):
 
 
 
+class ValueEqualityTests(TestCase):
+
+    def test_values_equal(self):
+        val1 = Value(19, 0.4)
+        val2 = Value(19, 0.5)
+        val3 = Value(23, 0.5)
+        self.assertEqual(val1, val2)
+        self.assertNotEqual(val1, val3)
+
+
+    def test_value_number_equality(self):
+        val1 = Value(19, 0.4)
+        val2 = 19.0
+        val3 = 23
+        self.assertEqual(val1, val2)
+        self.assertNotEqual(val1, val3)
+
+
+    def test_number_value_equality(self):
+        val1 = 19
+        val2 = Value(19.0, 0.5)
+        val3 = Value(23, 0.5)
+        self.assertEqual(val1, val2)
+        self.assertNotEqual(val1, val3)
+        
+
+
 class ValueValueTests(TestCase):
 
     def test_can_get_value(self):
