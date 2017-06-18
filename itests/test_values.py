@@ -64,5 +64,5 @@ class ValueTest(TestCase):
         # Consistency
         self.assertTrue(Value(3, 0.4).consistent_with(Value(3.4, 0.01)))
         self.assertTrue(Value(3, 0.4).consistent_with(3.4))
-        self.assertFalse(Value(3, 0.39).consistent_with(Value(3.4, 0.01)))
+        self.assertFalse(Value(3, 0.39).consistent_with(Value(3.5, 0.01)))
         self.assertFalse(Value(3, 0.39).consistent_with(3.4))

@@ -173,3 +173,26 @@ class Value:
         :rtype: ``float``"""
 
         return self._error / self._value
+
+
+    def consistent_with(self, other):
+        """Checks if the value is `consistent` with another value. Two values
+        are considered consistent if the difference between them is less than or
+        equal to the sum of their uncertainties/errors.
+
+        If two values are consistent, there cannot be said to be a difference
+        between them, whereas if they are not consistent, there is a meaningful
+        difference between them.
+
+        You can also provide an ``int`` or ``float``, which will be assumed to
+        have an error of zero.
+
+        :param Value other: The other value to check against."""
+
+        if isinstance(other, (int, float)):
+            return abs(self.value() - other) <= self.error()
+        elif not isinstance(other, Value):
+            raise TypeError(
+             "Cannot get consistency with non-number {}".format(other)
+            )
+        return abs(self.value() - other.value()) <= self.error() + other.error()

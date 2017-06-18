@@ -319,3 +319,38 @@ class ValueRelativeErrorTests(TestCase):
     def test_can_get_relative_error(self):
         val = Value(100, 2)
         self.assertEqual(val.relative_error(), 0.02)
+
+
+
+class ValueConsistencyTests(TestCase):
+
+    def test_can_get_consistent_results(self):
+        val1 = Value(3.3, 0.2)
+        val2 = Mock(Value)
+        val2.value.return_value = 3.1
+        val2.error.return_value = 0.1
+        self.assertTrue(val1.consistent_with(val2))
+
+
+    def test_can_get_inconsistent_results(self):
+        val1 = Value(3.30001, 0.2)
+        val2 = Mock(Value)
+        val2.value.return_value = 3.0
+        val2.error.return_value = 0.1
+        self.assertFalse(val1.consistent_with(val2))
+
+
+    def test_can_get_consistency_with_non_value(self):
+        val1 = Value(9.87, 0.09)
+        val2 = 9.81
+        self.assertTrue(val1.consistent_with(val2))
+        val2 = 9.78
+        self.assertTrue(val1.consistent_with(val2))
+        val2 = 9.7799
+        self.assertFalse(val1.consistent_with(val2))
+
+
+    def test_cannot_get_consistency_with_non_number(self):
+        val1 = Value(9.87, 0.09)
+        with self.assertRaises(TypeError):
+            val1.consistent_with("value")
