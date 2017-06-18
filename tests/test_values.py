@@ -172,6 +172,42 @@ class ValueMultiplicationTests(TestCase):
 
 
 
+class ValueDivisionTests(TestCase):
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_divide_values(self, mock_err):
+        mock_err.side_effect = (4, 3)
+        val1 = Value(12, 48)
+        val2 = Value(4, 12)
+        val3 = val1 / val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 3)
+        self.assertEqual(val3._error, 15)
+
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_divide_value_by_number(self, mock_err):
+        mock_err.return_value = 0.025
+        val1 = Value(12, 48)
+        val2 = 4.0
+        val3 = val1 / val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 3)
+        self.assertAlmostEqual(val3._error, 0.075, delta=0.000005)
+
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_divide_number_by_value(self, mock_err):
+        mock_err.return_value = 0.06
+        val1 = 12
+        val2 = Value(4, 12)
+        val3 = val1 / val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, 3)
+        self.assertAlmostEqual(val3._error, 0.18, delta=0.000005)
+
+
+
 class ValueValueTests(TestCase):
 
     def test_can_get_value(self):

@@ -29,12 +29,12 @@ class ValueTest(TestCase):
         value1 = Value(120, 3)
         value2 = Value(20, 1.2)
         quotient = value1 / value2
-        self.assertEqual(quotient.value(), 20)
+        self.assertEqual(quotient.value(), 6)
         self.assertAlmostEqual(quotient.error(), 0.39, delta=0.005)
 
         # Values can be raised to a power
         value1 = Value(5.75, 0.08)
-        power = value ** 3
+        power = value1 ** 3
         self.assertEqual(power.value(), 190.1)
         self.assertAlmostEqual(power.error(), 7.93, delta=0.005)
 
