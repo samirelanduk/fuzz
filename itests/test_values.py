@@ -1,7 +1,27 @@
 from unittest import TestCase
-from fuzz.values import Value
+from fuzz import Value
 
 class ValueTest(TestCase):
+
+    def test_can_get_information_from_value(self):
+        value = Value(24, 1.2)
+        self.assertEqual(value.value(), 24)
+        self.assertEqual(value.error(), 1.2)
+        self.assertAlmostEqual(value.relative_error(), 0.05, delta=0.0005)
+        self.assertEqual(value.error_range(), (22.8, 25.2))
+
+        value = Value.create(value)
+        self.assertEqual(value.value(), 24)
+        self.assertEqual(value.error(), 1.2)
+        self.assertAlmostEqual(value.relative_error(), 0.05, delta=0.0005)
+        self.assertEqual(value.error_range(), (22.8, 25.2))
+
+        value = Value(value)
+        self.assertEqual(value.value(), 24)
+        self.assertEqual(value.error(), 1.2)
+        self.assertAlmostEqual(value.relative_error(), 0.05, delta=0.0005)
+        self.assertEqual(value.error_range(), (22.8, 25.2))
+
 
     def test_can_combine_values(self):
         # Values can be added
