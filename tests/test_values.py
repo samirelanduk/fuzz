@@ -16,6 +16,15 @@ class ValueCreationTests(TestCase):
         self.assertEqual(val._error, 1.5)
 
 
+    def test_can_create_value_from_value(self):
+        value = Mock(Value)
+        value._value = 10
+        value._error = 2
+        val = Value(value)
+        self.assertEqual(val._value, 10)
+        self.assertEqual(val._error, 0)
+
+
     def test_value_requires_numbers(self):
         Value(23)
         Value(23.5)

@@ -28,6 +28,7 @@ class Value:
     :raises ValueError: if the error is negative."""
 
     def __init__(self, value, error=0):
+        if isinstance(value, Value): value = value._value
         if not isinstance(value, (int, float)) or isinstance(value, bool):
             return TypeError("value {} is not an int or a float".format(value))
         if not isinstance(error, (int, float)) or isinstance(error, bool):

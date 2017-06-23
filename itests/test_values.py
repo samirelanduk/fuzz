@@ -12,15 +12,11 @@ class ValueTest(TestCase):
 
         value = Value.create(value)
         self.assertEqual(value.value(), 24)
-        self.assertEqual(value.error(), 1.2)
-        self.assertAlmostEqual(value.relative_error(), 0.05, delta=0.0005)
-        self.assertEqual(value.error_range(), (22.8, 25.2))
+        self.assertEqual(value.error(), 0)
 
         value = Value(value)
         self.assertEqual(value.value(), 24)
-        self.assertEqual(value.error(), 1.2)
-        self.assertAlmostEqual(value.relative_error(), 0.05, delta=0.0005)
-        self.assertEqual(value.error_range(), (22.8, 25.2))
+        self.assertEqual(value.error(), 0)
 
 
     def test_can_combine_values(self):
