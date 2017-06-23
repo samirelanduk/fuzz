@@ -175,6 +175,14 @@ class Value:
         return self._error / self._value
 
 
+    def error_range(self):
+        """Returns the range of possible values implied by the uncertainty.
+
+        :rtype: ``tuple``"""
+
+        return (self._value - self._error, self._value + self._error)
+
+
     def consistent_with(self, other):
         """Checks if the value is `consistent` with another value. Two values
         are considered consistent if the difference between them is less than or

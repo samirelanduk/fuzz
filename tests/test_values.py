@@ -322,6 +322,14 @@ class ValueRelativeErrorTests(TestCase):
 
 
 
+class ValueErrorRangeTest(TestCase):
+
+    def test_can_get_error_range(self):
+        val = Value(100, 2)
+        self.assertEqual(val.error_range(), (98, 102))
+
+
+
 class ValueConsistencyTests(TestCase):
 
     def test_can_get_consistent_results(self):
