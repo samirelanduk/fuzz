@@ -47,9 +47,9 @@ class Value:
     def __init__(self, value, error=0):
         if isinstance(value, Value): value = value._value
         if not isinstance(value, (int, float)) or isinstance(value, bool):
-            return TypeError("value {} is not an int or a float".format(value))
+            raise TypeError("value {} is not an int or a float".format(value))
         if not isinstance(error, (int, float)) or isinstance(error, bool):
-            return TypeError("error {} is not an int or a float".format(error))
+            raise TypeError("error {} is not an int or a float".format(error))
         if error < 0:
             raise ValueError("error {} is negative".format(error))
         self._value = value
