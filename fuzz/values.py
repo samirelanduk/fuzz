@@ -12,14 +12,31 @@ class Value:
     divide them, raise them to powers, compare them etc. There are a few
     important differences however. Firstly, the error values of the resultant
     operations will be derived from the standard guidelines for combining
-    uncertainties. That is, adding two values will sum their errors, as will
-    subtracting. Multiplying and dividing values will sum the relative errors.
+    uncertainties. Specifically, values will be assumed to be independent, and
+    so errors will be summed etc. in quadrature.
+
     Secondly, comparing two values with ``==``, ``<`` etc. will compare the
     values only - the error values will not be taken into account. I thought it
     would be too confusing otherwise. However, all values have a
-    :py:methh:`.consistent_with` method which `will` look at the error values.
+    :py:meth:`.consistent_with` method which `will` look at the error values.
     If two values are consistent, then one should not be considered larger than
     the other, regardless of what ``>`` says.
+
+    The intention behind the Value class was that if you wanted to, you could
+    forget that it was anything other than an ``int`` or ``float``, and only
+    access the error associated with it if you need it.
+
+    You can create a Value `from` a value, and the argument will be treated
+    exactly like an ``int`` or ``float``. That is, unless you also supply an
+    error value, the resultant Value will have an error of 0. I considered
+    having the error of the Value passed in become the new error, but decided
+    it would become too easy to lose track of the errors. So,
+    `Value(Value(23, 0.2))`` would produce a Value with an error of 0 (and a
+    value of 23).
+
+    One final note on terminology - I know it is confusing that the Value class
+    has a property called :py:meth:`value`, but that is the terminology in use
+    as of this version.
 
     :param value: The value.
     :param error: The uncertainty associated with the value. By default this is\
@@ -48,7 +65,7 @@ class Value:
 
         :param value: The value to convert.
         :param error: The error associated with the value.
-        :returns: Either the converted :py:class:`.value` or the original\
+        :returns: Either the converted :py:class:`.Value` or the original\
         object."""
 
         try:
@@ -196,7 +213,10 @@ class Value:
         You can also provide an ``int`` or ``float``, which will be assumed to
         have an error of zero.
 
-        :param Value other: The other value to check against."""
+        :param Value other: The other value to check against.
+        :raises TypeError: if the other value given is not a ``Value``, ``int``\
+        or ``float``.
+        :rtype: ``bool``"""
 
         if isinstance(other, (int, float)):
             return abs(self.value() - other) <= self.error()
