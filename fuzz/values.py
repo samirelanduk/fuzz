@@ -6,7 +6,7 @@ class Value:
     """A Value represents a numerical measurement of some kind, with its
     associated uncertainty/error.
 
-    For example a value of 23 ± 0.2 would be ``Value(23, 0.2)``
+    For example a value of 23 ± 0.2 would be ``Value(23, 0.2)``.
 
     Values mostly support the same operators that numbers do - you can add them,
     divide them, raise them to powers, compare them etc. There are a few
@@ -31,7 +31,7 @@ class Value:
     error value, the resultant Value will have an error of 0. I considered
     having the error of the Value passed in become the new error, but decided
     it would become too easy to lose track of the errors. So,
-    `Value(Value(23, 0.2))`` would produce a Value with an error of 0 (and a
+    ``Value(Value(23, 0.2))`` would produce a Value with an error of 0 (and a
     value of 23).
 
     One final note on terminology - I know it is confusing that the Value class

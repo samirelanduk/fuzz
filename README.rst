@@ -1,3 +1,58 @@
+fuzz
+====
+
+fuzz is a lightweight Python utility providing values with associated
+uncertainty.
+
+Example
+-------
+
+  >>> import fuzz
+  >>> value1 = fuzz.Value(23, error=0.3)
+  >>> value2 = fuzz.Value(28, error=1.3)
+  >>> value1
+  23 ± 0.3
+  >>> value2
+  28 ± 1.3
+  >>> value1 + value2
+  51 ± 1.3341664064126335
+
+
+
+
+Installing
+----------
+
+pip
+~~~
+
+fuzz can be installed using pip:
+
+``$ pip3 install fuzz``
+
+fuzz is written for Python 3, and does not support Python 2.
+
+If you get permission errors, try using ``sudo``:
+
+``$ sudo pip3 install fuzz``
+
+
+Development
+~~~~~~~~~~~
+
+The repository for fuzz, containing the most recent iteration, can be
+found `here <http://github.com/samirelanduk/fuzz/>`_. To clone the
+fuzz repository directly from there, use:
+
+``$ git clone git://github.com/samirelanduk/fuzz.git``
+
+
+Requirements
+~~~~~~~~~~~~
+
+fuzz currently has no external dependencies.
+
+
 Overview
 --------
 
@@ -12,7 +67,7 @@ their precision. It is this 'plus or minus' which fuzz handles.
 Creating
 ~~~~~~~~
 
-The key (and currently only) object type in fuzz is the :py:class:`.Value`. A
+The key (and currently only) object type in fuzz is the ``Value``. A
 Value is just a number, or measurement. The most basic Value would be created
 as follows:
 
@@ -82,8 +137,20 @@ However, the error is important when comparing uncertain values. The expression
 9. But mathematically, the values are so uncertain and so close, that you might
 wish to check that this difference is significant.
 
-For this purpose, the :py:meth:`~.Value.consistent_with` method can be used.
+For this purpose, the ``Value.consistent_with`` method can be used.
 Two values are consistent if the sum of their errors is larger than the
 difference between their values. ``Value(10, 5).consistent_with(Value(9, 4))``
 would return ``True``, and so whatever the operands might say, you should be
 careful about treating one as being unambiguously larger than the other.
+
+
+Changelog
+---------
+
+Release 0.1.0
+~~~~~~~~~~~~~
+
+`28 June 2017`
+
+* Added basic Value class.
+* Added basic mathematical operations.
