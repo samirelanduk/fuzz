@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
  name="fuzz",
- version="0.1.0",
+ version="0.1.1",
  description="Contains tools for modelling values with associated uncertainty.",
  url="https://fuzz.samireland.com",
  author="Sam Ireland",
