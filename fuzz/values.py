@@ -186,10 +186,12 @@ class Value:
 
 
     def relative_error(self):
-        """Returns the value's associated error as a proportion of the value.
+        """Returns the value's associated error as a proportion of the value. If
+        the value is 0, the relative error will be 0 too.
 
         :rtype: ``float``"""
 
+        if not self._value: return 0
         return self._error / self._value
 
 

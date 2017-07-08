@@ -330,6 +330,11 @@ class ValueRelativeErrorTests(TestCase):
         self.assertEqual(val.relative_error(), 0.02)
 
 
+    def test_can_get_relative_error_when_value_is_zero(self):
+        val = Value(0, 2)
+        self.assertEqual(val.relative_error(), 0)
+
+
 
 class ValueErrorRangeTest(TestCase):
 
