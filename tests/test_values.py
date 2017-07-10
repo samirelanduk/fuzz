@@ -180,6 +180,17 @@ class ValueMultiplicationTests(TestCase):
         self.assertAlmostEqual(val3._error, 0.36)
 
 
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_multiply_negative_values(self, mock_err):
+        mock_err.side_effect = (0.025, 0.06)
+        val1 = Value(-2, 0.08)
+        val2 = Value(3, 0.05)
+        val3 = val1 * val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, -6)
+        self.assertAlmostEqual(val3._error, 0.39)
+
+
 
 class ValueDivisionTests(TestCase):
 
@@ -216,6 +227,17 @@ class ValueDivisionTests(TestCase):
         self.assertAlmostEqual(val3._error, 0.18, delta=0.000005)
 
 
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_divide_negative_values(self, mock_err):
+        mock_err.side_effect = (4, 3)
+        val1 = Value(12, 48)
+        val2 = Value(-4, 12)
+        val3 = val1 / val2
+        self.assertIsInstance(val3, Value)
+        self.assertEqual(val3._value, -3)
+        self.assertEqual(val3._error, 15)
+
+
 
 class ValuePowerTests(TestCase):
 
@@ -228,6 +250,30 @@ class ValuePowerTests(TestCase):
         self.assertIsInstance(val3, Value)
         self.assertEqual(val3._value, 8)
         self.assertEqual(val3._error, 0.24)
+
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_raise_negative_value_to_power(self, mock_err):
+        mock_err.return_value = 0.01
+        val1 = Value(-2, 0.02)
+        val = val1 ** 2
+        self.assertIsInstance(val, Value)
+        self.assertEqual(val._value, 4)
+        self.assertEqual(val._error, 0.08)
+        val = val1 ** 3
+        self.assertIsInstance(val, Value)
+        self.assertEqual(val._value, -8)
+        self.assertEqual(val._error, 0.24)
+
+
+    @patch("fuzz.values.Value.relative_error")
+    def test_can_raise_value_to_negative_power(self, mock_err):
+        mock_err.return_value = 0.01
+        val1 = Value(2, 0.02)
+        val = val1 ** -2
+        self.assertIsInstance(val, Value)
+        self.assertEqual(val._value, 0.25)
+        self.assertEqual(val._error, 0.005)
 
 
 
@@ -333,6 +379,11 @@ class ValueRelativeErrorTests(TestCase):
     def test_can_get_relative_error_when_value_is_zero(self):
         val = Value(0, 2)
         self.assertEqual(val.relative_error(), 0)
+
+
+    def test_can_get_relative_error_when_value_is_negative(self):
+        val = Value(-100, 2)
+        self.assertEqual(val.relative_error(), 0.02)
 
 
 
