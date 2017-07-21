@@ -147,6 +147,15 @@ careful about treating one as being unambiguously larger than the other.
 Changelog
 ---------
 
+
+Release 0.1.1
+~~~~~~~~~~~~~
+
+`21 July 2017`
+
+* Fixed bugs related to negative numbers.
+
+
 Release 0.1.0
 ~~~~~~~~~~~~~
 
